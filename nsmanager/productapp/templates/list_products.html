@@ -1,0 +1,52 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<form method="get" action="">
+  <input type="text" name="search" value="{{ request.GET.search }}" placeholder="Search Products">
+  <input type="submit" value="Search">
+</form>
+  <h2>Lista Produktów</h2>
+  <a href="{% url 'authenticate:logout' %}" class="btn btn-primary">Wyloguj</a>
+  <a href="javascript:void(0)" onclick="addProduct()" class="btn btn-danger">Dodaj Produkt</a>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID Shoper</th>
+        <th>SKU</th>
+        <th>EAN</th>
+        <th>QTY</th>
+        <th>Aktualizacja Ręczna</th>
+        <th>Change</th>
+        <th>Update Date</th>
+        <th>Operation</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+        <tr id="product-{{ product.id }}">
+          <td>{{ product.id_shoper }}</td>
+          <td>{{ product.sku }}</td>
+          <td>{{ product.ean }}</td>
+          <td>{{ product.qty }}</td>
+          <td id="product-{{ product.id }}-synchronization">{{ product.synchronization }}</td>
+          <th>{% csrf_token %} <a href="javascript:void(0)" onclick="synchronizeProduct({{ product.id }})" class="btn btn-success">Synchronizuj</a></th>
+          <td>{{ product.update_date }}</td>
+          <td>
+            <a href="{% url 'productapp:edit_product' product.id %}" class="btn btn-warning">Edytuj</a>
+            <a href="javascript:void(0)" 
+            data-current-page="{{ current_page }}"
+            data-max-page="{{ max_page }}"
+            onclick="deleteProduct({{ product.id }}, this)" 
+            class="btn btn-danger">Usuń</a>
+          </td>
+        </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+ {% include '_pagination.html' %}
+
+  
+  {% include 'modal_add_product.html' %}
+{% endblock %}

@@ -1,0 +1,6 @@
+.venv
+.env
+NSManager/mariadb_data
+.pyc
+__pycache__
+\migrations

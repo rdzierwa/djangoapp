@@ -1,0 +1,11 @@
+<!-- productapp/templates/productapp/add_product.html -->
+
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">Zapisz Produkt</button>
+    </form>
+{% endblock %}

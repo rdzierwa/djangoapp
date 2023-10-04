@@ -1,0 +1,11 @@
+<!-- productapp/templates/productapp/edit_product.html -->
+
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-warning">Aktualizuj Produkt</button>
+    </form>
+{% endblock %}

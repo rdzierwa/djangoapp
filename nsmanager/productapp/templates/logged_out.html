@@ -1,0 +1,8 @@
+<!-- myapp/templates/myapp/logged_out.html -->
+
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>Zostałeś wylogowany</h2>
+  <p>Musisz się <a href="{% url 'login' %}">zalogować</a>, aby uzyskać dostęp do tej strony.</p>
+{% endblock %}
