@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  sql_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mcr.microsoft.com/mssql/server:2022-preview-ubuntu-22.04
+    container_name: sqlpreview
+    hostname: sqlpreview
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: yourStrong$0102Password
+      SA_PASSWORD: yourStrong$0102Password
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - mssql-data:/var/opt/mssql
+    #command: /bin/bash -c "(/opt/mssql/bin/sqlservr & ) && sleep 30 && /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $$SA_PASSWORD -i /tmp/init.sql" Not neccesary but you can add new user to database
+volumes:
+  mssql-data:
+
